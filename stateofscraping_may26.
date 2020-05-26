@@ -1,0 +1,28 @@
+<p>The Colab session I worked in before GCP integration: <a href="https://colab.research.google.com/drive/1rd8VQm4-ksaqEI5rFdqmWha9cxPAZxwW?usp=sharing">https://colab.research.google.com/drive/1rd8VQm4-ksaqEI5rFdqmWha9cxPAZxwW?usp=sharing</a>
+GCP base directory: <code>/home/szabo_miklos_1998/hirkeresoscraper2</code> (on <code>scrapermachine</code>).</p>
+<p>When looking at files here, be sure to look the latest ones in the directory tree (ie <code>/home/szabo_miklos_1998/hirkeresoscraper2/2020/5/26/21/42_40</code>).
+The latest scraping script we have: <a href="https://github.com/szabomikii/hirkeresoscrape2/blob/master/scraper_may26.py">https://github.com/szabomikii/hirkeresoscrape2/blob/master/scraper_may26.py</a></p>
+<h1 id="pestisr-cok">Pestisrácok</h1>
+<p>Code dealt with 105 articles (105 hirkereso scrape, 105 pestisracok scrape), there are 2 files for which the scraping obviously didn&#39;t work (by &#39;obviously&#39; I mean that even my script didn&#39;t think it has worked).
+<img src="https://raw.githubusercontent.com/zabop/zabop.github.io/master/pestisracoksummary.PNG" alt="pestisracok results">
+Can check the files by going to the directory <code>/home/szabo_miklos_1998/hirkeresoscraper2/2020/5/26/21/42_40/pestisracok</code>, then <code>cat */*</code>. </p>
+<h2 id="some-examples-">Some examples:</h2>
+<p>The script produced the following result for <a href="https://pestisracok.hu/online-jatekversenyt-hirdet-a-mome-a-hirdomping-es-az-alhirek-ellen/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=online-jatekversenyt-hirdet-a-mome-a-hirdomping-es-az-alhirek-ellen">this article</a>
+<img src="https://raw.githubusercontent.com/zabop/zabop.github.io/master/psexample1.PNG" alt="result1">
+Seems fairly ok.</p>
+<p><a href="https://pestisracok.hu/xxi-szazad-intezet-jarvany-csillapodasaval-felerosodik-az-atrendezodes-az-ellenzeki-oldalon/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=xxi-szazad-intezet-jarvany-csillapodasaval-felerosodik-az-atrendezodes-az-ellenzeki-oldalon">Another article.</a>Result:
+<img src="https://raw.githubusercontent.com/zabop/zabop.github.io/master/psexample2.PNG" alt="psresult2">
+Also seems ok. Checked some other ones (5), those also seem ok. If we want higher confidence levels, can check more manually.</p>
+<h1 id="origo-tv2">Origo, tv2</h1>
+<p>Scraping consistently doesn&#39;t work when run on GCP. Origo might be an easy fix (it did worked on Colab). For tv2, it should work in a large fraction of the cases (did in Colab), will look into it why it doesn&#39;t on GCP. Mokka tv and special cases still expected not to work. <code>#checkthis1</code>
+<img src="https://raw.githubusercontent.com/zabop/zabop.github.io/master/origodoesntworkyet.PNG" alt="origodoesntworkyet"></p>
+<h1 id="888">888</h1>
+<p>Code doesn&#39;t detect any errors with scraping, it seems to work fine:
+<img src="https://raw.githubusercontent.com/zabop/zabop.github.io/master/888seemstowork.PNG" alt="888seemstowork">
+Checked 5 articles manually, those seemed ok.</p>
+<h1 id="parsing">Parsing</h1>
+<p>Two functions here: <a href="https://github.com/szabomikii/hirkeresoscrape2/blob/master/parsefunctions.py">https://github.com/szabomikii/hirkeresoscrape2/blob/master/parsefunctions.py</a></p>
+<p>We can get the names of different sections within a file (this list is often outlet-specific). We can also get the data stored under each keyword. The <code>TEXT</code> keyword doesn&#39;t work yet, but the <code>TITLE</code> does. <code>#checkthis2</code>. I think we&#39;ll be able to preceed with pipelining from here.</p>
+<p>Example:
+<img src="https://raw.githubusercontent.com/zabop/zabop.github.io/master/parsingexample.PNG" alt="parsing example"></p>
+<p>If we are really OOP fan, we could create classes for each article, with the author/title/text/etc data as attributes, but I don&#39;t really recommend it, since the last time I pursued this path, the need for better RAM management was clear after a few thousand objects created, which is hard (so I would stay with functional style).</p>
