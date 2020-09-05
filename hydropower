@@ -1,0 +1,38 @@
+<h1 id="thoughts-on-small-scale-hydropower-utilization">Thoughts on small-scale hydropower utilization</h1>
+<p>Recently I have become interested inutilization of small scale hydropower. Here I outline the possible use cases &amp; hurdles of such a project.</p>
+<hr>
+<h2 id="the-watermill-itself">The watermill itself</h2>
+<p>Lets call the thing which generates electric power for us a <em>watermill</em>, ok, it&#39;s not a technical term, but let&#39;s go with it.</p>
+<p>When designing such a system, things to take into consideration:</p>
+<ul>
+<li><p>How much <strong>off-the-shelf components</strong> we want to use</p>
+</li>
+<li><p><strong>Price</strong>: should be low enough to make operation at least theoretically profitable on the long run, maybe with an improved device</p>
+</li>
+<li><p><strong>Location</strong>:</p>
+<ul>
+<li><strong>Safety</strong> of the equipment (ie lets not start in Basra)</li>
+<li><strong>Reliability</strong> of water supply (ie Tamanrasset is not going to work)</li>
+<li><strong>Flooding</strong>: if flooding is likely, equipment should withstand it</li>
+<li><strong>Internet connection</strong>: for remote monitoring &amp; other operations</li>
+<li>The mill probably should be <strong>portable</strong>, so we can set it up wherever we see fit &amp; change our mind if a better option appears without much hassle.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Power</strong>: should be enough to make a revenue-generating operation possible. As a start, I don&#39;t see much utility in generating more supply than this requires.</li>
+</ul>
+<hr>
+<h2 id="the-mine">The mine</h2>
+<h3 id="core-hardware">Core hardware</h3>
+<p>We should pick up the low-cost, low-power end of the stick. Ie GPU / CPU mining, not ASICs. We can mine our own cryptocurrency, or rent out mining power using nicehash.</p>
+<p>We should buy the mining equipment straight before commencing operations with it (ie after the mill is finished), considering the state of the cryptocurrency mining landscape at the time (for example, is XMR going to be ASIC-resistant by then? we hope so).</p>
+<p>Later, if the operation proves profitable &amp; fun, we can scale up power generation so we can work with ASICs as well.</p>
+<h3 id="cooling">Cooling</h3>
+<p>We could use the flowing water to build a more energy-efficient colling mechanism. When the project is in an advanced stage, I don&#39;t recommend doing this initially: just stick with the usual mining hardware.</p>
+<hr>
+<h2 id="the-surrounding-area">The surrounding area</h2>
+<p>If an area which we are able to use (though renting it / other agreement with owner) is bigger than our needs, there are a few things which we could do with it.</p>
+<p>If we can get access to cheaper electricity than most of Europe from the national network, we could set up boxes which other miners can use. They pay us for the place, we pay the electricity provider the fees. This seems a good idea if the project is in Zakarpattia Oblast for example: electricity is cheaper in Ukraine than most of Europe. I don&#39;t recommend commencing mining operations on state electricity though with our own hardware: the cheapest GPUs / CPUs, which can mine more revenue than their price is only capable of this if electricity is <em>very</em> cheap: even Ukraine price levels are not low enough for that. Other miners might have more hardcore equipment which makes mining profitable for them on state-provided electricity.</p>
+<p>If there are times when we create more power than we use, we can replace part of state-provided electricity for other miners: their operation can be made cheaper this way: we can create revenue from this as well. </p>
+<hr>
