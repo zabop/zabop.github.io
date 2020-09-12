@@ -1,0 +1,79 @@
+<p>Három asset-ből álló loopokon szeretnénk kereskedni.</p>
+<p>Tehát például:</p>
+<p>Van BTC-nk, ezt szeretnénk eladni, és ETH-n és XMR-en keresztül újra visszajutni a BTC-nkhez.</p>
+<p>Sok külön eset van arra, hogy lehet ezt pontosan metenni:</p>
+<hr>
+<h2 id="-odair-ny-k-r-">&quot;Odairányú&quot; kör:</h2>
+<p>BTC-t eladjuk, vesszük ETH-t, ETH-t eladjuk, vesszük XMR-t, XMR-t eladjuk, vesszük BTC-t.
+(Vagyis: BTC-&gt;ETH-&gt;XMR-&gt;BTC)</p>
+<ul>
+<li><p><strong>BTC-&gt;ETH ág</strong>, kétféle lehetőség:</p>
+<ol>
+<li><p><strong>BTCETH market</strong>-en adjuk el a BTC-t</p>
+<p> <em>Ilyen market nincs. (Egyébként onnan tudjuk hogy nincs, hogy <a href="https://www.binance.com/en/trade/BTC_XMR">ez az oldal</a> 404 error-t ad.) Ha lenne, highest bid ár lenne a releváns.</em></p>
+</li>
+<li><p><a href="https://www.binance.com/en/trade/BTC_ETH"><strong>ETHBTC market</strong></a>-en adjuk el a BTC-t</p>
+<p> <em>Lowest ask áron tudjuk ezt megtenni.
+ Ebben az esetben: baseAsset: ETH, quoteAsset: BTC, symbol: ETHBTC.</em></p>
+</li>
+</ol>
+</li>
+<li><p><strong>ETH-&gt;XMR ág</strong>, kétféle lehetőség:</p>
+<ol>
+<li><p><strong>ETHXMR market</strong>-en adjuk el az ETH-t</p>
+<p> <em>Ilyen market nincs, ha lenne, highest bid ár lenne a releváns.</em></p>
+</li>
+<li><p><a href="https://www.binance.com/en/trade/XMR_ETH"><strong>XMRETH market</strong></a>-en adjuk el az ETH-t</p>
+<p> <em>A lowest ask áron tudjuk ezt megtenni.</em></p>
+</li>
+</ol>
+</li>
+<li><p><strong>XMR-&gt;BTC ág</strong>, kétféle lehetőség:</p>
+<ol>
+<li><p><a href="https://www.binance.com/en/trade/XMR_BTC"><strong>XMRBTC market</strong></a>-en adjuk el az XMR-t</p>
+<p> <em>A highest bid áron tudjuk ezt megtenni.</em></p>
+</li>
+<li><p><strong>BTCXMR market</strong>-en adjuk el az
+XMR-t</p>
+<p> <em>Ilyen market nincs, ha lenne, a lowest ask ár lenne a releváns.</em></p>
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="-visszair-ny-k-r-">&quot;Visszairányú&quot; kör:</h2>
+<p>BTC-t eladjuk, vesszük XMR-t, XMR-t eladjuk, vesszük ETH-t, ETH-t eladjuk, vesszük BTC-t. (Vagyis: BTC-&gt;XMR-&gt;ETH-&gt;BTC)</p>
+<ul>
+<li><p><strong>BTC-&gt;XMR ág</strong>, kétféle lehetőség:</p>
+<ol>
+<li><p><strong>BTCXMR market</strong>-en adjuk el a BTC-t</p>
+<p> <em>Ilyen market nincs, ha lenne: highest bid ár lenne a releváns.</em></p>
+</li>
+<li><p><a href="https://www.binance.com/en/trade/XMR_BTC"><strong>XMRBTC market</strong></a>-en adjuk el a BTC-t</p>
+<p> <em>A lowest ask áron tudjuk ezt megtenni.</em></p>
+</li>
+</ol>
+</li>
+<li><p><strong>XMR-&gt;ETH ág</strong>, kétféle lehetőség:</p>
+<ol>
+<li><p><a href="https://www.binance.com/en/trade/XMR_ETH"><strong>XMRETH market</strong></a>-en adjuk el az XMR-t</p>
+<p> <em>A highest bid áron tudjuk ezt megtenni.</em></p>
+</li>
+<li><p><strong>ETHXMR market</strong>-en adjuk el az XMR-t</p>
+<p> <em>Ilyen market nincs, ha lenne: lowest ask ár lenne a releváns</em></p>
+</li>
+</ol>
+</li>
+<li><p><strong>ETH-&gt;BTC ág</strong>, kétféle lehetőség:</p>
+<ol>
+<li><p><a href="https://www.binance.com/en/trade/BTC_ETH"><strong>ETHBTC market</strong></a>-en adjuk el az ETH-t</p>
+<p> <em>A highest bid áron tudjuk ezt megtenni.</em></p>
+</li>
+<li><p><strong>BTCETH market</strong>-en adjuk el az ETH-t</p>
+<p> <em>Ilyen market nincs, ha lenne: lowest ask ár lenne a releváns</em></p>
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<p>Vegyük észre hogy: ha egy marketon a <em>highest bid</em> árat használunk az <em>odairányú</em> körben, a <em>visszairányúban lowest ask</em>-ot használunk, és fordítva. </p>
