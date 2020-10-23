@@ -1,0 +1,151 @@
+<!from: https://tex.stackexchange.com/questions/27633/mathjax-inline-mode-not-rendering>                                                             
+<script type="text/x-mathjax-config">                                                                                                                
+MathJax.Hub.Config({                                                                                                                                 
+tex2jax: {                                                                                                                                           
+inlineMath: [ ['$','$'], ["\\(","\\)"] ],                                                                                                            
+processEscapes: true,                                                                                                                                
+loader: {load: ['[tex]/braket']},                                                                                                                    
+tex: {packages: {'[+]': ['braket']}}                                                                                                                 
+}                                                                                                                                                    
+});                                                                                                                                                  
+                                                                                                                                                     
+                                                                                                                                                     
+</script>                                                                                                                                            
+<script type="text/javascript"                                                                                                                       
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">                                                             
+</script>                                                                                                                                            
+                                                                                                                                                     
+<!from: https://www.mathjax.org/#gettingstarted>                                                                                                     
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>                                                                          
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>                                        
+                                                                                                                                                     
+                                                                                                                                                     
+<style>                                                                                                                                              
+h1 {text-align: center;}                                                                                                                             
+h2 {text-align: center;}                                                                                                                             
+h3 {text-align: center;}                                                                                                                             
+                                                                                                                                                     
+body {background-color: powderblue;}                                                                                                                 
+</style>                                                                                                                                             
+                                                                                                                                                     
+                                                                                                                                                     
+<!from: https://stackoverflow.com/a/62032824/8565438>                                                                                                
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">                                      
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>                                                  
+<script>hljs.initHighlightingOnLoad();</script> 
+
+<h1 id="-pi-meson-problem">$\pi$-meson problem</h1>
+<p>Frame $S&#39;$ moves with speed $v$ relative to frame $S$ in standard configuration. Neutral $\pi$-mesons at rest in $S&#39;$ decay into two photons that are emitted isotropically. Show that the angular distribution of photons in $S$ is</p>
+<p>$$P(\theta)d\theta=\frac{\sin\theta d\theta}{2\gamma^2(1-\beta \cos\theta)^2}$$</p>
+<hr>
+<h2 id="attempt-i">Attempt I</h2>
+<p>In a previous problem we have seen that if we shoot a photon in $S&#39;$ at a direction $\theta&#39;$ from the direction of motion of $S&#39;$ compared to $S$, this angle in $S$ will be:</p>
+<p>$$\theta = \arctan\left(\frac{\sin\theta&#39;}{\gamma_v(\cos\theta&#39;+\beta_v)}\right)$$</p>
+<p>Photons are now emitted at all directions. Let&#39;s first find the probability density of an emission in terms of $\theta&#39;$ in $S&#39;$. Consider a unit sphere around the meson, what is the probability of a photon being emitted between the angles $\theta&#39;$ and $\theta&#39;+d\theta&#39;$?</p>
+<p>$$P&#39;(\theta&#39;)=\frac{\int_{\phi=0}^{\phi=2\pi}\sin\theta&#39;d\theta&#39;d\phi}{\text{Surface area of unit sphere}}=\frac{2\pi\sin(\theta&#39;)d\theta}{4\pi}=\frac{\sin(\theta&#39;)d\theta&#39;}{2}$$</p>
+<p>We have a mapping function from $\theta&#39;$ to $\theta$, and a probability density for $\theta&#39;$. How do we get a probability density function in $\theta$? </p>
+<p>We don&#39;t know yet, so let&#39;s check numerically that at least in theory we are doing the right thing.</p>
+<pre><code><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> random
+</code></pre><p>These will help us along the way:</p>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gamma</span><span class="hljs-params">(v,c=<span class="hljs-number">1</span>)</span></span>:
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>/np.sqrt(<span class="hljs-number">1</span>-v**<span class="hljs-number">2</span>/c**<span class="hljs-number">2</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">beta</span><span class="hljs-params">(v, c=<span class="hljs-number">1</span>)</span></span>:
+    <span class="hljs-keyword">return</span> v/c
+</code></pre><p>Below is our mapper from $\theta&#39;$ to $\theta$. In our modelled example, let&#39;s give $S&#39;$ speed of $0.9c$.</p>
+<pre><code>def thetafunc(thetaprime, v=<span class="hljs-number">0.9</span>, <span class="hljs-built_in">gamma</span>=<span class="hljs-built_in">gamma</span>, <span class="hljs-built_in">beta</span>=<span class="hljs-built_in">beta</span>):
+    res = <span class="hljs-built_in">np</span>.arctan(
+        (
+            <span class="hljs-built_in">np</span>.<span class="hljs-built_in">sin</span>(thetaprime)
+        )/(<span class="hljs-built_in">gamma</span>(v)*(<span class="hljs-built_in">np</span>.<span class="hljs-built_in">cos</span>(thetaprime)+<span class="hljs-built_in">beta</span>(v)))
+        )
+
+    <span class="hljs-built_in">return</span> <span class="hljs-built_in">np</span>.where(res&lt;<span class="hljs-number">0</span>,res+<span class="hljs-built_in">np</span>.pi, res) # this <span class="hljs-built_in">is</span> to <span class="hljs-built_in">map</span> the output of arctan from the <span class="hljs-built_in">range</span> [-pi/<span class="hljs-number">2</span> pi/<span class="hljs-number">2</span>] to [<span class="hljs-number">0</span> to pi]
+</code></pre><p>We hope that if we shoot enough photons, the distribution in $S$ will resemble this function, given in the question:</p>
+<pre><code>def P(theta, v=<span class="hljs-number">0.9</span>):
+    <span class="hljs-built_in">return</span> <span class="hljs-built_in">np</span>.<span class="hljs-built_in">sin</span>(theta)/(<span class="hljs-number">2</span>*<span class="hljs-built_in">gamma</span>(v)**<span class="hljs-number">2</span>*(<span class="hljs-number">1</span>-<span class="hljs-built_in">beta</span>(v)*<span class="hljs-built_in">np</span>.<span class="hljs-built_in">cos</span>(theta))**<span class="hljs-number">2</span>)
+</code></pre><p>Create an array of possible $\theta&#39;$s between $0$ and $\pi$:</p>
+<pre><code>start=<span class="hljs-number">0</span>
+stop=<span class="hljs-built_in">np</span>.pi
+<span class="hljs-keyword">step</span>=<span class="hljs-number">0.000001</span>
+angles=<span class="hljs-built_in">np</span>.arange(start+<span class="hljs-keyword">step</span>,stop+<span class="hljs-keyword">step</span>,<span class="hljs-keyword">step</span>) # <span class="hljs-keyword">not</span> starting <span class="hljs-built_in">at</span> zero to avoid zerodivisionerror <span class="hljs-keyword">and</span> simimlar <span class="hljs-built_in">errors</span>
+</code></pre><p>Note that not all of the $\theta$ values are equally likely to be a photon&#39;s direction; we want to be able to randomly select $k$ many of phton directions, whatever this be, from a distribution given by $P&#39;(\theta&#39;)$. So this is what we do:</p>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">angles_weighted</span><span class="hljs-params">(k, angles=angles)</span></span>:
+    weights=np.sin(angles)/<span class="hljs-number">2</span>
+    <span class="hljs-keyword">return</span> random.choices(angles,weights=weights,k=k)
+</code></pre><p>Ok so we can have as many $\theta&#39;$s as we like, transforming them to $\theta$ is possible via:</p>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">thetas</span><span class="hljs-params">(howmany,angles=angles)</span></span>:
+    <span class="hljs-keyword">return</span> thetafunc(angles_weighted(k=howmany),v=<span class="hljs-number">0</span>.<span class="hljs-number">9</span>)
+</code></pre><p>We have set up everything. Let&#39;s shoot ten thousand and a million photons &amp; plot the results:</p>
+<pre><code>fig, axs = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>,figsize=(<span class="hljs-number">8</span>,<span class="hljs-number">8</span>))
+
+shots=<span class="hljs-number">10000</span>
+axs[<span class="hljs-number">0</span>].plot(angles,P(angles),c=<span class="hljs-string">'r'</span>,label=<span class="hljs-string">'What we hope the numerical distribution will be'</span>)
+axs[<span class="hljs-number">0</span>].hist(thetas(howmany=shots),density=<span class="hljs-keyword">True</span>,bins=<span class="hljs-number">100</span>, alpha=<span class="hljs-number">0.95</span>, label=<span class="hljs-string">'Numerical distribution, '</span>+repr(shots)+<span class="hljs-string">' shots'</span>);
+axs[<span class="hljs-number">0</span>].legend(loc=<span class="hljs-string">'upper right'</span>)
+axs[<span class="hljs-number">0</span>].title.set_text(<span class="hljs-string">'Angle distribution of '</span>+repr(shots)+<span class="hljs-string">' mesons, measured in S, emitted in S\', v=0.9c'</span>);
+axs[<span class="hljs-number">0</span>].set_xlabel(<span class="hljs-string">r'$\theta$'</span>);
+axs[<span class="hljs-number">0</span>].set_ylabel(<span class="hljs-string">'P'</span>);
+
+
+shots=<span class="hljs-number">1000000</span>
+axs[<span class="hljs-number">1</span>].plot(angles,P(angles),c=<span class="hljs-string">'r'</span>,label=<span class="hljs-string">'What we hope the numerical distribution will be'</span>)
+axs[<span class="hljs-number">1</span>].hist(thetas(howmany=shots),density=<span class="hljs-keyword">True</span>,bins=<span class="hljs-number">1000</span>, alpha=<span class="hljs-number">0.95</span>, label=<span class="hljs-string">'Numerical distribution, '</span>+repr(shots)+<span class="hljs-string">' shots'</span>);
+axs[<span class="hljs-number">1</span>].legend(loc=<span class="hljs-string">'upper right'</span>)
+axs[<span class="hljs-number">1</span>].title.set_text(<span class="hljs-string">'Angle distribution of '</span>+repr(shots)+<span class="hljs-string">' mesons, measured in S, emitted in S\', v=0.9c'</span>);
+axs[<span class="hljs-number">1</span>].set_xlabel(<span class="hljs-string">r'$\theta$'</span>);
+axs[<span class="hljs-number">1</span>].set_ylabel(<span class="hljs-string">'P'</span>);
+
+plt.tight_layout()
+</code></pre><p>We get:</p>
+<p><a href="https://i.stack.imgur.com/kIVOQ.png"><img src="https://i.stack.imgur.com/kIVOQ.png" alt="enter image description here"></a></p>
+<p>Nice. But still have no idea how to do it mathematically.</p>
+<hr>
+<h2 id="attempt-ii">Attempt II</h2>
+<p>Situation: we have $f:\theta&#39; \rightarrow \theta$, $P&#39;(\theta&#39;)$, we want $P(\theta)$. The page bit.ly/PDFtransform informs me that I can find $P(\theta)$ by calculating:</p>
+<p>$$P(\theta)=P&#39;\left(\text{inv}f(\theta)\right)\frac{d}{d\theta}\left(\text{inv}f(\theta)\right)$$</p>
+<p>Let&#39;s do this then. Instead of trying to invert $f$ brute force, lets just go back to the derivation and derive a map from $\theta$ to $\theta&#39;$, which&#39;ll be of course inverse of $f$ (which maps from $\theta&#39;$ to $\theta$).</p>
+<p>Following lecture slides:</p>
+<p>$$\tan\theta&#39;=\frac{u&#39;_y}{u&#39;_x}=\frac{\frac{u_y}{\gamma_v(1-\frac{u_xv}{c^2})}}{\frac{u_x-v}{1-\frac{u_xv}{c^2}}}=\frac{u_y}{\gamma_v(u_x-v)}=\frac{u\sin\theta}{\gamma_v(u\cos\theta)-v}$$</p>
+<p>Using $u=c$ for photon case, we have:</p>
+<p>$$\tan\theta&#39;=\frac{\sin\theta}{\gamma<em>v(\cos\theta-\beta</em>{v})}$$</p>
+<p>So the map:</p>
+<p>$$\theta&#39;=\arctan\frac{\sin\theta}{\gamma_v(\cos\theta+\beta_v)}$$</p>
+<p>Back to the distribution:</p>
+<p>$$P(\theta)=P&#39;\left(\text{inv}f(\theta)\right)\frac{d}{d\theta}\left(\text{inv}f(\theta)\right)$$</p>
+<p>$$=\frac{1}{2}\sin\left(\arctan\left(\frac{\sin\theta}{\gamma_v(\cos\theta+\beta_v)}\right)\right)\cdot\frac{d}{d\theta}\left(\arctan\left(\frac{sin\theta}{\gamma_v(\cos\theta+\beta_v)})\right) \right)$$</p>
+<p>Let $$X=\frac{\sin\theta}{\gamma_v(\cos\theta+\beta_v)}.$$</p>
+<p>Using the fact that in general $\sin\arctan(x)=\frac{x^2}{\sqrt{x^2+1}}$ and $\frac{d}{dx}\arctan(x)=\frac{1}{1+x^2}$ (didn&#39;t remember these, looked them up), we have:</p>
+<p>$$P(\theta)=\frac{1}{2}\frac{X}{\sqrt{X^2+1}}\cdot\frac{1\frac{d}{d\theta}X}{1+X^2}=\frac{1}{2}\frac{X}{\left(1+X^2\right)^{\frac{3}{2}}}\frac{d}{d\theta}X$$</p>
+<p>Substitute back for $X$:</p>
+<p>$$P(\theta)=\frac{1}{2}\frac{\frac{\sin\theta}{\gamma_v(\cos\theta-\beta_v)}}{(1+\frac{\sin^2(\theta)}{\gamma_v^2(\cos\theta-\beta_v)^2})^{\frac{3}{2}}}\frac{d}{d\theta}\left(\frac{\sin\theta}{\gamma_v(\cos\theta-\beta_v)}\right)$$</p>
+<p>Focusing on the part with the differentiation:</p>
+<p>$$\frac{d}{d\theta}\left(\frac{\sin\theta}{\gamma_v(\cos\theta-\beta_v)}\right)=\frac{\cos\theta}{\gamma_v(\cos\theta-\beta_v)}+\sin\theta(-1)\left(\gamma_v(\cos\theta-\beta_v)\right)^{-2}(-1)\gamma_v\sin\theta$$</p>
+<p>$$=\frac{\cos\theta}{\gamma_v(\cos\theta-\beta_v)}+\frac{\sin^2(\theta)}{\gamma_v(\cos\theta-\beta_v)^2}$$</p>
+<p>Substitute back:</p>
+<p>$$P(\theta)=\frac{1}{2}\frac{\frac{\sin\theta}{\gamma_v(\cos\theta-\beta_v)}}{\left(1+\frac{\sin^2(\theta)}{\gamma_v^2(\cos\theta-\beta_v)^2}\right)^{\frac{3}{2}}}\left(\frac{\cos\theta}{\gamma_v(\cos\theta-\beta_v)}+\frac{\sin^2(\theta)}{\gamma_v(\cos\theta-\beta_v)^2}\right)$$</p>
+<p>$$=\frac{1}{2}\frac{\frac{\sin\theta}{\gamma_v^2(\cos\theta-\beta_v)^2}}{\left(1+\frac{\sin^2(\theta)}{\gamma_v^2(\cos\theta-\beta_v)^2}\right)^{\frac{3}{2}}}\left(\cos\theta+\frac{\sin^2(\theta)}{\gamma_v(\cos\theta-\beta_v)^2}\right)$$</p>
+<p>$$=\frac{1}{2}\frac{\frac{\sin\theta}{\gamma_v^2(\cos\theta-\beta_v)^2}}{\left(\frac{\gamma_v^2(\cos\theta-\beta_v)^2+\sin^2\theta}{\gamma_v^2(\cos\theta-\beta_v)^2}\right)^{\frac{3}{2}}}\left(\cos\theta+\frac{\sin^2(\theta)}{\gamma_v(\cos\theta-\beta_v)^2}\right)$$</p>
+<p>$$=\frac{1}{2}\frac{\frac{\sin\theta}{\gamma_v^2(\cos\theta-\beta_v)^2}}{\left(\frac{\gamma_v^2(\cos\theta-\beta_v)^2+\sin^2\theta}{\gamma_v^2(\cos\theta-\beta_v)^2}\right)^{\frac{3}{2}}}\left(\frac{\cos(\theta)(\cos(\theta)-\beta_v)+\sin^2\theta}{\cos\theta-\beta_v}\right)$$</p>
+<p>$$=\frac{1}{2}\frac{\sin(\theta)\gamma_v}{\left(\gamma_v^2(\cos\theta-\beta_v)^2+\sin^2\theta\right)^{\frac{3}{2}}}(\cos(\theta)(\cos(\theta)-\beta_v)+\sin^2\theta)$$</p>
+<p>$$=\frac{1}{2}\frac{\sin(\theta)\gamma_v}{\left(\gamma_v^2(\cos(\theta)-\beta_v)^2+\sin^2\theta\right)^{\frac{3}{2}}}(1-\cos(\theta)\beta_v)$$</p>
+<p>Replace the $\gamma_v$ in the denominator with $\beta_v$ expressions:</p>
+<p>$$=\frac{1}{2}\frac{\sin(\theta)\gamma_v(1-\cos(\theta)\beta_v)}{\left(\frac{1}{1-\beta_v^2}\right)^{\frac{3}{2}}\left((\cos(\theta)-\beta_v)^2+(1-\beta_v^2)\sin^2\theta\right)^{\frac{3}{2}}}$$</p>
+<p>Noting that $\gamma_v/\left(\frac{1}{1-\beta^2}\right)^{\frac{3}{2}}=\frac{1}{\gamma_v^2}$, we have:</p>
+<p>$$=\frac{1}{2}\frac{\sin(\theta)(1-\cos(\theta)\beta_v)}{\left(\gamma^2\right)\left((\cos(\theta)-\beta_v)^2+(1-\beta_v^2)\sin^2\theta\right)^{\frac{3}{2}}}$$</p>
+<p>Focus on the denominator:</p>
+<p>$$(\cos(\theta)-\beta_v)^2+(1-\beta_v^2)\sin^2\theta$$</p>
+<p>$$=\cos^2\theta+\beta_v^2-2(\cos\theta)\beta_v+\sin^2(\theta)-\beta^2\sin^2\theta$$</p>
+<p>$$=1+\beta_v^2(1-\sin^2\theta)-2\cos(\theta)\beta_v$$</p>
+<p>$$=1+\beta_v^2\cos^2\theta-2\cos(\theta)\beta_v$$</p>
+<p>$$=(1-\beta_v\cos\theta)^2$$</p>
+<p>Plug back in:</p>
+<p>$$P(\theta)=\frac{1}{2}\frac{\sin(\theta)(1-\beta_v\cos(\theta))}{\left(\gamma^2\right)\left((1-\beta_v\cos\theta)^2\right)^{\frac{3}{2}}}$$</p>
+<p>Simplify:</p>
+<p>$$P(\theta)=\frac{1}{2}\frac{\sin(\theta)}{\left(\gamma^2\right)(1-\beta_v\cos\theta)^2}$$</p>
+<p>As required.</p>
+<hr>
+<h2 id="-potential-attempt-iii">(Potential) Attempt III</h2>
+<p>A friend pointed out that the value of the comulative density function at $\theta$ in $S$ should be the same as the CDF at $\theta&#39;$ in $S&#39;$. Sounds legit, maybe this method doesn&#39;t require knowing the statistics bit above, which is quite a large drawback of Attempt II.</p>
