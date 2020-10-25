@@ -1,0 +1,93 @@
+<!from: https://tex.stackexchange.com/questions/27633/mathjax-inline-mode-not-rendering>                                                             
+<script type="text/x-mathjax-config">                                                                                                                
+MathJax.Hub.Config({                                                                                                                                 
+tex2jax: {                                                                                                                                           
+inlineMath: [ ['$','$'], ["\\(","\\)"] ],                                                                                                            
+processEscapes: true,                                                                                                                                
+loader: {load: ['[tex]/braket']},                                                                                                                    
+tex: {packages: {'[+]': ['braket']}}                                                                                                                 
+}                                                                                                                                                    
+});                                                                                                                                                  
+
+
+</script>                                                                                                                                            
+<script type="text/javascript"                                                                                                                       
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">                                                             
+</script>                                                                                                                                            
+
+<!from: https://www.mathjax.org/#gettingstarted>                                                                                                     
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>                                                                          
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>                                        
+
+
+<style>                                                                                                                                              
+h1 {text-align: center;}                                                                                                                             
+h2 {text-align: center;}                                                                                                                             
+h3 {text-align: center;}                                                                                                                             
+
+body {background-color: powderblue;}                                                                                                                 
+</style>                                                                                                                                             
+
+
+<!from: https://stackoverflow.com/a/62032824/8565438>                                                                                                
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">                                      
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>                                                  
+<script>hljs.initHighlightingOnLoad();</script> 
+
+
+<h1 id="acceleration-of-a-spaceship">Acceleration of a spaceship</h1>
+<p>Problem:</p>
+<p><a href="https://i.stack.imgur.com/yrhwo.png"><img src="https://i.stack.imgur.com/yrhwo.png" alt="enter image description here"></a></p>
+<p>Setup: $S$ &amp; $S&#39;$ in standard configuration, S&#39; is moving away from origo of $S$ with speed $v$. Ship has speed $u_x$ in $S$ (and no speed component in $y&#39;$ and $z&#39;$ directions. Let&#39;s call $u_x$ just $u$ for simplicity.</p>
+<p>Then we have:</p>
+<p>$$u&#39;=\frac{u-v}{1-\frac{uv}{c^2}}$$</p>
+<p>Instantaneous measured acceleration in $S&#39;$:</p>
+<p>$$\frac{du&#39;}{d\tau}=\frac{du&#39;}{du}\frac{du}{d\tau}$$</p>
+<p>Focusing on $\frac{du&#39;}{du}$:</p>
+<p>$$\frac{du&#39;}{du}=\frac{d}{du}\left((u-v)\left(1-\frac{uv}{c^2}\right)^{-1}\right)$$</p>
+<p>$$=1\cdot\left(1-\frac{uv}{c^2}\right)^{-1}+\frac{u-v}{\left(1-\frac{uv}{c^2}\right)^2}\frac{v}{c}$$</p>
+<p>$$=\frac{1-\frac{uv}{c^2}+\frac{uv}{c^2}-\frac{v^2}{c^2}}{\left(1-\frac{uv}{c^2}\right)^2}$$</p>
+<p>$$=\frac{1-\frac{v^2}{c^2}}{\left(1-\frac{uv}{c^2}\right)^2}$$</p>
+<p>$$=\frac{1}{\gamma_v^2\left(1-\frac{uv}{c^2}\right)^2}$$</p>
+<p>Substitute back:</p>
+<p>$$\frac{du&#39;}{d\tau}=\frac{1}{\gamma_v^2\left(1-\frac{uv}{c^2}\right)^2}\frac{du}{d\tau}$$</p>
+<p>Choose $S&#39;$ such a way that it is an instantaneous rest frame for the spaceship at $\tau=0$. Ie $$v=u(\tau=0) \text{  &amp;  } \frac{du(\tau=0)}{d\tau}=f(\tau=0)$$</p>
+<p>Our DE at $\tau=0$:</p>
+<p>$$\frac{du&#39;}{d\tau} = \frac{1}{\gamma_v^2\left(1-\frac{v^2}{c^2}\right)^2}\frac{du}{d\tau}$$
+$$=\gamma_v^2\frac{du}{d\tau}$$
+$$\implies f(\tau) = \gamma_v^2\frac{du}{d\tau}\implies\frac{f(\tau)}{\gamma_v^2}=\frac{du}{d\tau}$$</p>
+<p>As parametrization, let:</p>
+<p>$$u(\tau) = c \tanh \psi$$</p>
+<p>Then it follows that: </p>
+<p>$$\gamma_v^2=\frac{1}{1-\frac{v^2}{c^2}}=\frac{1}{1-\tanh^2\psi}=\frac{1}{\text{sech}^2x}=\cosh^2x$$</p>
+<p>RHS:</p>
+<p>$$\frac{d}{d\tau}(c \tanh\psi)=c\text{ sech}^2\psi\cdot\frac{d\psi}{d\tau}$$</p>
+<p>LHS:</p>
+<p>$$\frac{f(\tau)}{\gamma_v^2}=\frac{1}{\cosh^2\psi}f(\tau)=\text{sech}^2\psi\cdot f(\tau)$$</p>
+<p>RHS=LHS, cross out $\text{sech}^2\psi$ terms, arrive at the DE:</p>
+<p>$$c\frac{d\psi}{d\tau}=f(\tau)$$</p>
+<p>Solution:</p>
+<p>$$\psi(\tau)=\frac{1}{c}\int^\tau f(\tau&#39;)d\tau&#39;$$</p>
+<p>Noting that the problem wants us to get an integral from $0$ to $\tau$, let&#39;s write this as:</p>
+<p>$$\psi(\tau)=\frac{1}{c}\int_0^\tau f(\tau&#39;)d\tau&#39;+K$$</p>
+<p>Since we said that $u(\tau=0) = v$, we ought to get: $v=c \tanh(\psi(\tau=0))$. Ie:</p>
+<p>$$v=c\tanh\left(\int_0^{\tau=0}f(\tau&#39;)d\tau&#39;+K\right)$$
+$$=c\tanh(K)$$
+$$\implies K=\text{arctanh}\left(\frac{v}{c}\right)$$</p>
+<p>Using the identity $\tanh(A+B)=\frac{\tanh A+\tanh B}{1+\tanh A\tanh B}$, we have:</p>
+<p>$$u=c\tanh \psi = c \tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;+\text{arctanh} \frac{v}{c}\right)$$</p>
+<p>$$=c\frac{\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)+\tanh \text{arctanh} \frac{v}{c}}{1+\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)\tanh\text{arctanh} \frac{v}{c}}$$</p>
+<p>$$=c\frac{\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)+\frac{v}{c}}{1+\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)\frac{v}{c}}$$</p>
+<p>$$=\frac{c\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)+v}{1+\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)\frac{v}{c}}=u$$</p>
+<p>Recall we have: $u&#39;=\frac{u-v}{1-\frac{uv}{c^2}}$ which maps from speeds in $S$ to $S&#39;$. Invert to get a map $S&#39;$ to $S$ (ie change $v$ $-v$, primed to unprimed and vice versa:</p>
+<p>$$u=\frac{u&#39;+v}{1+\frac{u&#39;v}{c^2}}$$
+$$=\frac{u&#39;+v}{1+\frac{u&#39;}{c}\frac{v}{c}}$$</p>
+<p>Compare with what we found:</p>
+<p>$$u=\frac{c\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)+v}{1+\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)\frac{v}{c}}$$</p>
+<p>Conclude:</p>
+<p>$$u&#39;=c\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)$$</p>
+<p>Using $S$ to $S&#39;$ map, setting $u_0=v$, writing $u$ as $u(\tau)$, rewrite:</p>
+<p>$$\frac{u(\tau)-u_0}{1-\frac{u(\tau)u_0}{c^2}}=c\tanh\left(\frac{1}{c}\int_0^{\tau}f(\tau&#39;)d\tau&#39;\right)$$</p>
+<p>As required.</p>
+<h2 id="thougts">Thougts</h2>
+<p>I am concerned a bit that this is a lousy solution. I take the original problem, set up a DE that is true for $\tau=0$, then solve, then use it as a solution to the problem even when $\tau$ is not $0$ anymore. Why is this, if at all, justified?</p>
