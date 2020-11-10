@@ -1,0 +1,17 @@
+Curve is geodesic in the manifold: so it has, by definition, extremal distance between two points in the manifold.
+
+Tthe hypersurface fully contains the curve, so it can be a geodesic curve on the hypersurface if it is a curve of extremal distance.
+
+Requiring that the hypersurface contains the curve does not add more freedom to our choice of the shape of the curve.
+
+It restricts us to a subspace of the vectorspace of the manifold.
+
+So there is no way we can create a curve between two points which is shorter than the geodesic curve in the manifold.
+
+If we could, since the hypersurface is a subspace of the manifold, our new curve would have extremal distance in the manifold as well.
+
+Example for converse, ie when a geodesic curve on a hypersurface is not a geodesic curve on the manifold:
+
+Curves between 2 points on a 2-sphere embedded into a 3D vectorspace.
+
+Ie if Eurostar would go straight, it would have a shorter distance to cover than regular surface transport.
