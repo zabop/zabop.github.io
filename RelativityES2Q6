@@ -1,6 +1,6 @@
 Curve is geodesic in the manifold: so it has, by definition, extremal distance between two points in the manifold.
 
-Tthe hypersurface fully contains the curve, so it can be a geodesic curve on the hypersurface if it is a curve of extremal distance.
+The hypersurface fully contains the curve, so it can be a geodesic curve on the hypersurface if it is a curve of extremal distance.
 
 Requiring that the hypersurface contains the curve does not add more freedom to our choice of the shape of the curve.
 
